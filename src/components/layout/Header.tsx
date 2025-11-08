@@ -18,26 +18,26 @@ export default function Header({
         </div>
 
         {/* Contact Button */}
-        <button
-          className="flex items-center gap-3 rounded-full bg-[#20211e] px-8 py-3 transition-all duration-200 hover:bg-black"
-          aria-label="Contact us"
-        >
-          <span className="text-lg font-bold tracking-wider text-ghostwhite">
-            {contactButtonText}
-          </span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="text-ghostwhite"
-          >
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </button>
+                    <button
+                      className="flex items-center gap-3 rounded-full bg-[#20211e] px-8 py-3 transition-all duration-200 hover:bg-black"
+                      aria-label="Contact us"
+                    >
+                      <span className="text-lg font-bold tracking-wider text-white">
+                        {contactButtonText}
+                      </span>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-white"
+                      >
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
       </div>
     </header>
   );

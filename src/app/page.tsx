@@ -1,6 +1,7 @@
 import Header from '@/components/layout/Header';
 import NavigationBar from '@/components/layout/NavigationBar';
 import HeroSection from '@/components/sections/HeroSection';
+import ServicesSection from '@/components/sections/ServicesSection';
 import Footer from '@/components/layout/Footer';
 
 export default function Home() {
@@ -13,6 +14,9 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center pt-32">
         <HeroSection minHeight="min-h-[522px]" />
       </div>
+
+      {/* Services Section */}
+      <ServicesSection />
 
       <Footer />
     </main>
