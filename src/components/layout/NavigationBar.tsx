@@ -27,7 +27,7 @@ export default function NavigationBar({ navItems }: NavigationBarProps) {
   const items = navItems || defaultItems;
 
   return (
-    <nav className="fixed left-1/2 -translate-x-1/2 bottom-8 z-40">
+    <nav className="sticky top-20 z-40 w-full flex justify-center">
       <div className="flex items-center gap-8 rounded-full bg-neutral-400 px-8 py-3 shadow-lg">
         {items.map((item, index) => (
           <button

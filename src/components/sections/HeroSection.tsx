@@ -11,15 +11,20 @@ export default function HeroSection({
 }: HeroSectionProps) {
   return (
     <section
-      className={`relative mx-auto w-full max-w-[992px] ${minHeight} rounded-lg bg-[#d9d9d9]`}
-      style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-      data-node-id="92:18"
+      className={`relative w-full px-4 flex items-center justify-center ${minHeight}`}
+      style={{ minHeight: '522px' }}
     >
-      {/* Optional: Add overlay or content here for future sections */}
+      <div
+        className="w-full max-w-[992px] h-[400px] flex items-center justify-center rounded-lg bg-[#d9d9d9]"
+        style={{
+          backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+        data-node-id="92:18"
+      >
+        {/* Optional: Add overlay or content here for future sections */}
+      </div>
     </section>
   );
 }
