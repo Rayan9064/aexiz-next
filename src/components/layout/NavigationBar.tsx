@@ -28,16 +28,16 @@ export default function NavigationBar({ navItems }: NavigationBarProps) {
 
   return (
     <nav className="sticky top-20 z-40 w-full flex justify-center">
-      <div className="flex items-center gap-8 rounded-full bg-neutral-400 px-8 py-3 shadow-lg">
+      <div className="flex items-center gap-4 sm:gap-6 md:gap-8 rounded-full bg-neutral-400 px-4 sm:px-8 py-2 sm:py-3 shadow-lg">
         {items.map((item, index) => (
           <button
             key={index}
-            className="flex items-center gap-2 transition-all duration-200 hover:opacity-80"
+            className="flex items-center gap-1 sm:gap-2 transition-all duration-200 hover:opacity-80"
           >
-            <span className="w-4 h-4 flex items-center justify-center">
+            <span className="w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center">
               {item.icon}
             </span>
-            <span className="text-sm font-bold tracking-wider" style={{ color: '#F8F8FF' }}>
+            <span className="text-xs sm:text-sm md:text-base font-bold tracking-wider" style={{ color: '#F8F8FF' }}>
               {item.label}
             </span>
           </button>
