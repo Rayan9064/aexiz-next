@@ -1,5 +1,7 @@
 'use client';
 
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
 interface WorkCard {
   id: string;
   title: string;
@@ -18,6 +20,9 @@ interface WorksSectionProps {
 }
 
 export default function WorksSection({ works }: WorksSectionProps) {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: itemsRef, isVisible: itemsVisible } = useScrollAnimation({ threshold: 0.15 });
+
   const defaultWorks: Work[] = [
     {
       id: '1',
@@ -76,21 +81,34 @@ export default function WorksSection({ works }: WorksSectionProps) {
   return (
     <section className="w-full bg-white py-20">
       {/* Header */}
-      <div className="px-4 mb-12">
+      <div
+        ref={headerRef}
+        className={`px-4 mb-12 transition-all duration-700 ${
+          headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        }`}
+      >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-7xl md:text-8xl font-bold text-black mb-8">WORKS</h2>
         </div>
       </div>
 
       {/* Works Grid */}
-      <div className="space-y-0">
+      <div ref={itemsRef} className="space-y-0">
         {items.map((work, index) => {
           const isDarkBg = index % 2 === 0;
           const bgClass = isDarkBg ? 'bg-black text-ghostwhite' : 'bg-white text-black';
           const cardBgClass = isDarkBg ? 'bg-gray-400' : 'bg-gray-900';
 
           return (
-            <div key={work.id} className={`${bgClass} py-16 px-4`}>
+            <div
+              key={work.id}
+              className={`${bgClass} py-16 px-4 transition-all duration-700 ${
+                itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+              }`}
+              style={{
+                transitionDelay: itemsVisible ? `${index * 0.12}s` : '0s',
+              }}
+            >
               <div className="max-w-7xl mx-auto">
                 {/* Title */}
                 <h3 className={`text-6xl md:text-7xl font-bold mb-4 ${isDarkBg ? 'text-ghostwhite' : 'text-gray-800'}`}>
@@ -104,10 +122,15 @@ export default function WorksSection({ works }: WorksSectionProps) {
 
                 {/* Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {work.cards.map((card) => (
+                  {work.cards.map((card, cardIndex) => (
                     <div
                       key={card.id}
-                      className={`${cardBgClass} rounded-2xl aspect-square`}
+                      className={`${cardBgClass} rounded-2xl aspect-square transition-all duration-700 ${
+                        itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                      }`}
+                      style={{
+                        transitionDelay: itemsVisible ? `${(index * 0.12) + (cardIndex * 0.08)}s` : '0s',
+                      }}
                     />
                   ))}
                 </div>

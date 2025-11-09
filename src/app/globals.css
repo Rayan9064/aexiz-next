@@ -25,3 +25,69 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Scroll Animation Keyframes */
+@keyframes slideUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpStagger {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animation Classes */
+.animate-on-scroll {
+  animation: slideUpReveal 0.8s ease-out forwards;
+}
+
+.animate-on-scroll-stagger {
+  animation: slideUpStagger 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-on-scroll.visible {
+  animation: slideUpReveal 0.8s ease-out;
+}
+
+.animate-on-scroll-stagger.visible {
+  animation: slideUpStagger 0.8s ease-out;
+}
+
+.animate-scale-in-up {
+  animation: scaleInUp 0.7s ease-out forwards;
+}
+
+.animate-scale-in-up.visible {
+  animation: scaleInUp 0.7s ease-out;
+}
+
+/* Stagger animations for multiple items */
+.stagger-item {
+  --stagger-index: 0;
+  animation-delay: calc(var(--stagger-index) * 0.15s);
+}
