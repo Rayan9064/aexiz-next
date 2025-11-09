@@ -90,43 +90,65 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
         }`}
         data-node-id="142:27"
       >
-        <div className="w-full max-w-3xl">
-          <p 
-            className="text-center text-white"
+        <div
+          className="w-full max-w-4xl text-center text-white"
+          style={{
+        fontFamily: "'Arial', sans-serif",
+        fontSize: 'clamp(28px, 5vw, 48px)',
+        letterSpacing: '2px',
+        lineHeight: 'normal',
+        fontWeight: 'normal',
+          }}
+        >
+          {/* Line 1: from wild ideas to sleek visuals, we mix (9 words) */}
+          <p className="mb-4">
+        from{' '}
+        <span style={{ fontWeight: 'normal' }}>wild</span>
+        {' '}ideas to sleek
+          </p>
+          
+          {/* Line 2: design, rhythm, and attitude to turn every project into (10 words) */}
+          <p className="mb-4">
+        {' '}visuals, we mix{' '}
+        <span style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'normal' }}>design</span>
+        {','}
+          </p>
+
+          <p className="mb-4">
+        {'rhythm, and attitude to turn '}
+          </p>
+          
+          <p className="mb-4">
+        {' every project into a piece of '}
+          </p>
+
+          {/* Line 3: a piece of pure vibe. (6 words) */}
+          <p>
+        pure{' '}
+        <span
+          style={{
+            fontStyle: 'italic',
+            position: 'relative',
+            display: 'inline-block',
+            lineHeight: 'normal',
+            fontWeight: 'normal',
+          }}
+        >
+          <span
             style={{
-              fontFamily: "'Arial', sans-serif",
-              fontSize: 'clamp(28px, 5vw, 48px)',
-              letterSpacing: '2px',
-              lineHeight: '1.6',
-              fontWeight: '400',
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          right: 0,
+          transform: 'translateY(-50%)',
+          height: '0.80em',
+          backgroundColor: 'rgba(252, 117, 120, 0.6)',
+          zIndex: 0,
             }}
-          >
-            from{' '}
-            <span style={{ fontWeight: 'bold' }}>wild</span>
-            {' '}ideas to sleek visuals, we mix{' '}
-            <span style={{ textDecoration: 'underline', fontStyle: 'italic' }}>design</span>
-            {', rhythm, and attitude to turn every project into a piece of pure '}
-            <span 
-              style={{ 
-                fontStyle: 'italic',
-                position: 'relative',
-                display: 'inline-block',
-              }}
-            >
-              vibe
-              <span 
-                style={{
-                  position: 'absolute',
-                  bottom: '-8px',
-                  left: '0',
-                  right: '0',
-                  height: '12px',
-                  backgroundColor: 'rgba(252, 117, 120, 0.6)',
-                  zIndex: '-1',
-                }}
-              />
-            </span>
-            .
+          />
+          <span style={{ position: 'relative', zIndex: 1 }}>vibe</span>
+        </span>
+        .
           </p>
         </div>
       </div>
