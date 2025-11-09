@@ -15,7 +15,7 @@ export default function HeroSection({
       style={{ minHeight: '522px' }}
     >
       <div
-        className="w-full max-w-[992px] h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] flex items-center justify-center rounded-lg bg-[#d9d9d9] mt-6 sm:mt-10 md:mt-16 lg:mt-20 px-2 sm:px-4 md:px-8"
+        className="w-full max-w-[992px] h-[180px] sm:h-[260px] md:h-[340px] lg:h-[400px] flex items-center justify-center rounded-lg bg-[#d9d9d9] px-2 sm:px-4 md:px-8 transform md:-translate-y-8 lg:-translate-y-12 z-10"
         style={{
           backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
           backgroundSize: 'cover',

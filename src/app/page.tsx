@@ -7,54 +7,24 @@ import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/layout/Footer';
 
 export default function Home() {
-  // Height of header + navbar (adjust if you change their heights)
-  const headerHeight = 72; // px
-  const navbarHeight = 56; // px
-  const offset = headerHeight + navbarHeight;
-
   return (
     <main className="w-full">
-      {/* Fixed Header */}
-      <Header logoText="aexiz" contactButtonText="contact" />
-
-      {/* Hero Section with floating nav bar at bottom */}
-      <section className="w-full bg-ghostwhite relative flex flex-col justify-end" style={{ minHeight: `${offset + 522}px` }}>
-        <div className="flex-1 flex items-center justify-center">
-          <HeroSection minHeight="min-h-[522px]" />
-        </div>
-        <div className="w-full flex justify-center pb-8 pointer-events-none">
-          <div className="pointer-events-auto">
-            <NavigationBar />
-          </div>
-        </div>
+      {/* Hero Section */}
+      <section className="w-full bg-ghostwhite relative flex items-center justify-center min-h-[522px]">
+        <HeroSection minHeight="min-h-[522px]" />
       </section>
 
-      {/* Main Content Sections - each with floating nav bar at bottom */}
-      <section className="w-full bg-white relative" style={{ minHeight: '100vh' }}>
+      {/* Main Content Sections */}
+      <section className="w-full bg-white relative min-h-screen">
         <ServicesSection />
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 w-full flex justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <NavigationBar />
-          </div>
-        </div>
       </section>
 
-      <section className="w-full bg-white relative" style={{ minHeight: '100vh' }}>
+      <section className="w-full bg-white relative min-h-screen">
         <WorksSection />
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 w-full flex justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <NavigationBar />
-          </div>
-        </div>
       </section>
 
-      <section className="w-full bg-white relative" style={{ minHeight: '100vh' }}>
+      <section className="w-full bg-white relative min-h-screen">
         <ContactSection />
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 w-full flex justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <NavigationBar />
-          </div>
-        </div>
       </section>
 
       {/* Footer */}
