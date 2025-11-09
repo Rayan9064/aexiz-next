@@ -87,38 +87,63 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
       {/* SERVICES Heading Section - Full viewport height with title and colored line */}
       <div
         ref={headingRef}
-        className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 flex flex-col justify-center transition-all duration-700"
+  className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-20 flex flex-col justify-center transition-all duration-700"
+  style={{ position: 'relative' }}
       >
         <div className="w-full max-w-7xl mx-auto">
-          {/* SERVICES heading - Impact font, black, 290px */}
-          <h2 
-            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-none transition-all duration-700 ${
+          {/* 
+            SERVICES heading - Figma design spec
+            Layout: width 1109px, height 298px, flex-shrink: 0
+            Typography: Impact, 290px, #000, font-weight 400, line-height normal
+          */}
+          <h2
+            className={`transition-all duration-700 ${
               headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             style={{
               fontFamily: "'Impact', sans-serif",
+              fontSize: '290px',
               fontWeight: '400',
               color: '#000',
-              lineHeight: '1',
+              lineHeight: 'normal',
+              width: '1109px',
+              height: '298px',
+              flexShrink: 0,
+              display: 'block',
+              margin: 0,
+              padding: 0,
+              position: 'relative',
+              zIndex: 2,
+              top: '-40px',
             }}
             data-node-id="138:6"
           >
             SERVICES
           </h2>
-          
-          {/* Red/coral colored line below SERVICES - rgba(255, 0, 0, 0.53) */}
-          <div 
-            className={`w-full sm:w-5/6 md:w-4/5 h-12 sm:h-16 md:h-20 lg:h-24 mt-6 sm:mt-8 md:mt-12 transition-all duration-700 delay-150 ${
-              headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-            style={{ backgroundColor: 'rgba(255, 0, 0, 0.53)' }}
-            data-node-id="134:6"
-          />
         </div>
+
+        {/* Colored bar: 80% of viewport width, aligned right, positioned below heading */}
+        <div
+          aria-hidden
+          className={`transition-all duration-700 delay-150 ${
+            headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+          style={{
+            position: 'absolute',
+            right: 0,
+            width: '80vw',
+            height: '80px',
+            top: '380px',
+            backgroundColor: 'rgba(255, 0, 0, 0.53)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          }}
+          data-node-id="134:6"
+        />
       </div>
 
       {/* Description Section - Full screen width, dark background */}
-      <div 
+      <div
         ref={descRef}
         className={`w-full bg-[#20211e] flex flex-col items-center justify-center min-h-screen px-4 sm:px-8 md:px-12 lg:px-16 py-20 sm:py-28 md:py-32 transition-all duration-700 ${
           descVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
@@ -128,95 +153,93 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
         <div
           className="w-full max-w-4xl text-center text-white"
           style={{
-        fontFamily: "'Arial', sans-serif",
-        fontSize: 'clamp(28px, 5vw, 48px)',
-        letterSpacing: '2px',
-        lineHeight: 'normal',
-        fontWeight: 'normal',
-          }}
-        >
-          {/* Line 1: from wild ideas to sleek visuals, we mix (9 words) */}
-          <p className="mb-4">
-        from{' '}
-        <span style={{ fontWeight: 'normal' }}>wild</span>
-        {' '}ideas to sleek
-          </p>
-          
-          {/* Line 2: design, rhythm, and attitude to turn every project into (10 words) */}
-          <p className="mb-4">
-        {' '}visuals, we mix{' '}
-        <span style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'normal' }}>design</span>
-        {','}
-          </p>
-
-          <p className="mb-4">
-        {'rhythm, and attitude to turn '}
-          </p>
-          
-          <p className="mb-4">
-        {' every project into a piece of '}
-          </p>
-
-          {/* Line 3: a piece of pure vibe. (6 words) */}
-          <p>
-        pure{' '}
-        <span
-          style={{
-            fontStyle: 'italic',
-            position: 'relative',
-            display: 'inline-block',
+            fontFamily: "'Arial', sans-serif",
+            fontSize: 'clamp(28px, 5vw, 48px)',
+            letterSpacing: '2px',
             lineHeight: 'normal',
             fontWeight: 'normal',
           }}
         >
-          <span
-            style={{
-          position: 'absolute',
-          top: '50%',
-          left: 0,
-          right: 0,
-          transform: 'translateY(-50%)',
-          height: '0.80em',
-          backgroundColor: 'rgba(252, 117, 120, 0.6)',
-          zIndex: 0,
-            }}
-          />
-          <span style={{ position: 'relative', zIndex: 1 }}>vibe</span>
-        </span>
-        .
+          {/* Line 1: from wild ideas to sleek visuals, we mix (9 words) */}
+          <p className="mb-4">
+            from{' '}
+            <span style={{ fontWeight: 'normal' }}>wild</span>
+            {' '}ideas to sleek
+          </p>
+
+          {/* Line 2: design, rhythm, and attitude to turn every project into (10 words) */}
+          <p className="mb-4">
+            {' '}visuals, we mix{' '}
+            <span style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'normal' }}>design</span>
+            {','}
+          </p>
+
+          <p className="mb-4">
+            {'rhythm, and attitude to turn '}
+          </p>
+
+          <p className="mb-4">
+            {' every project into a piece of '}
+          </p>
+
+          {/* Line 3: a piece of pure vibe. (6 words) */}
+          <p>
+            pure{' '}
+            <span
+              style={{
+                fontStyle: 'italic',
+                position: 'relative',
+                display: 'inline-block',
+                lineHeight: 'normal',
+                fontWeight: 'normal',
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: 0,
+                  right: 0,
+                  transform: 'translateY(-50%)',
+                  height: '0.80em',
+                  backgroundColor: 'rgba(252, 117, 120, 0.6)',
+                  zIndex: 0,
+                }}
+              />
+              <span style={{ position: 'relative', zIndex: 1 }}>vibe</span>
+            </span>
+            .
           </p>
         </div>
       </div>
 
       {/* Dark Background Services Grid */}
       <div ref={servicesRef} className="w-full bg-[#20211e]">
-        {items.map((service, index) => {
-          const isEven = index % 2 === 1; // 02, 04 are on the right
-          return (
-            <div
-              key={service.number}
-              className={`w-full min-h-screen flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 transition-all duration-700 ${
-                servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
-              }`}
-              style={{ 
-                maxWidth: '1280px', 
-                margin: '0 auto',
-                transitionDelay: servicesVisible ? `${index * 0.15}s` : '0s',
-              }}
-            >
-              {/* Use items-center so the big number vertically centers with the content block */}
-              <div className={`flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${isEven ? 'flex-row-reverse' : ''}`}>
-                {/* Service Number - Big Shoulders Display */}
-                  {/* Number column: fixed width, full height of the service block so number lines up with corresponding content */}
-                  <div
-                    className="shrink-0"
-                    style={{
-                      width: 360,
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: isEven ? 'flex-end' : 'flex-start',
-                      paddingLeft: isEven ? 0 : 8,
+      {items.map((service, index) => {
+        const isEven = index % 2 === 1; // 02, 04 are on the right
+        return (
+        <div
+          key={service.number}
+          className={`w-full min-h-screen flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 transition-all duration-700 ${
+          servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+          }`}
+          style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          transitionDelay: servicesVisible ? `${index * 0.15}s` : '0s',
+          }}
+        >
+          {/* Use items-center so the big number vertically centers with the content block */}
+          <div className={`flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${isEven ? 'flex-row-reverse' : ''}`}>
+          {/* Service Number - Big Shoulders Display */}
+          {/* Number column: fixed width, full height of the service block so number lines up with corresponding content */}
+          <div
+            className="shrink-0"
+            style={{
+            width: 360,
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
                       paddingRight: isEven ? 8 : 0,
                     }}
                   >
