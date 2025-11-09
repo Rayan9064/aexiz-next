@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import SectionHeader from '@/components/layout/SectionHeader';
 
 interface Service {
   number: string;
@@ -14,7 +15,6 @@ interface ServicesSectionProps {
 }
 
 export default function ServicesSection({ services }: ServicesSectionProps) {
-  const { ref: headingRef, isVisible: headingVisible } = useScrollAnimation({ threshold: 0.3 });
   const { ref: descRef, isVisible: descVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: servicesRef, isVisible: servicesVisible } = useScrollAnimation({ threshold: 0.1 });
 
@@ -84,63 +84,14 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
 
   return (
     <section className="w-full">
-      {/* SERVICES Heading Section - Full viewport height with title and colored line */}
-      <div
-        ref={headingRef}
-  className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-20 flex flex-col justify-center transition-all duration-700"
-  style={{ position: 'relative' }}
-      >
-        <div className="w-full max-w-7xl mx-auto">
-          {/* 
-            SERVICES heading - Figma design spec
-            Layout: width 1109px, height 298px, flex-shrink: 0
-            Typography: Impact, 290px, #000, font-weight 400, line-height normal
-          */}
-          <h2
-            className={`transition-all duration-700 ${
-              headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-            style={{
-              fontFamily: "'Impact', sans-serif",
-              fontSize: '290px',
-              fontWeight: '400',
-              color: '#000',
-              lineHeight: 'normal',
-              width: '1109px',
-              height: '298px',
-              flexShrink: 0,
-              display: 'block',
-              margin: 0,
-              padding: 0,
-              position: 'relative',
-              zIndex: 2,
-              top: '-40px',
-            }}
-            data-node-id="138:6"
-          >
-            SERVICES
-          </h2>
-        </div>
-
-        {/* Colored bar: 80% of viewport width, aligned right, positioned below heading */}
-        <div
-          aria-hidden
-          className={`transition-all duration-700 delay-150 ${
-            headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-          style={{
-            position: 'absolute',
-            right: 0,
-            width: '80vw',
-            height: '80px',
-            top: '380px',
-            backgroundColor: 'rgba(255, 0, 0, 0.53)',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }}
-          data-node-id="134:6"
-        />
-      </div>
+      {/* SERVICES Heading Section - Using reusable SectionHeader component */}
+      <SectionHeader 
+        title="SERVICES" 
+        barPosition="bottom"
+        barAlignment="right"
+        barTopOffset={380}
+        showBar={true}
+      />
 
       {/* Description Section - Full screen width, dark background */}
       <div

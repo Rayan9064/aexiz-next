@@ -1,6 +1,7 @@
 'use client';
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import SectionHeader from '@/components/layout/SectionHeader';
 
 interface WorkCard {
   id: string;
@@ -20,7 +21,6 @@ interface WorksSectionProps {
 }
 
 export default function WorksSection({ works }: WorksSectionProps) {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
   const { ref: itemsRef, isVisible: itemsVisible } = useScrollAnimation({ threshold: 0.15 });
 
   const defaultWorks: Work[] = [
@@ -79,21 +79,19 @@ export default function WorksSection({ works }: WorksSectionProps) {
   const items = works || defaultWorks;
 
   return (
-    <section className="w-full bg-white py-20">
-      {/* Header */}
-      <div
-        ref={headerRef}
-        className={`px-4 mb-12 transition-all duration-700 ${
-          headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-7xl md:text-8xl font-bold text-black mb-8">WORKS</h2>
-        </div>
-      </div>
+    <section className="w-full">
+      {/* WORKS Header Section - Using reusable SectionHeader component */}
+      <SectionHeader 
+        title="WORKS"
+        barPosition="bottom"
+        barAlignment="right"
+        barTopOffset={380}
+        showBar={true}
+      />
 
       {/* Works Grid */}
-      <div ref={itemsRef} className="space-y-0">
+      <div className="w-full bg-white">
+        <div ref={itemsRef} className="space-y-0">
         {items.map((work, index) => {
           const isDarkBg = index % 2 === 0;
           const bgClass = isDarkBg ? 'bg-black text-ghostwhite' : 'bg-white text-black';
@@ -138,6 +136,7 @@ export default function WorksSection({ works }: WorksSectionProps) {
             </div>
           );
         })}
+        </div>
       </div>
     </section>
   );
