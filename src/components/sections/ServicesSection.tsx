@@ -42,61 +42,153 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
   const items = services || defaultServices;
 
   return (
-    <section className="w-full bg-white">
-      {/* Services Header - First full viewport section */}
-      <div className="w-full min-h-screen flex flex-col justify-center px-4 pt-32">
-        <div className="max-w-7xl mx-auto w-full">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold text-black mb-8">SERVICES</h2>
-          <p className="text-lg text-gray-700 max-w-4xl">
-            from wild ideas to sleek visuals, we mix design, rhythm, and attitude to turn every project into a piece of pure vibe.
+    <section className="w-full">
+      {/* SERVICES Heading Section - Full viewport height with title and colored line */}
+      <div className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 flex flex-col justify-center">
+        <div className="w-full max-w-7xl mx-auto">
+          {/* SERVICES heading - Impact font, black, 290px */}
+          <h2 
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-none"
+            style={{
+              fontFamily: "'Impact', sans-serif",
+              fontWeight: '400',
+              color: '#000',
+              lineHeight: '1',
+            }}
+            data-node-id="138:6"
+          >
+            SERVICES
+          </h2>
+          
+          {/* Red/coral colored line below SERVICES - rgba(255, 0, 0, 0.53) */}
+          <div 
+            className="w-full sm:w-5/6 md:w-4/5 h-12 sm:h-16 md:h-20 lg:h-24 mt-6 sm:mt-8 md:mt-12"
+            style={{ backgroundColor: 'rgba(255, 0, 0, 0.53)' }}
+            data-node-id="134:6"
+          />
+        </div>
+      </div>
+
+      {/* Description Section - Full screen width, dark background */}
+      <div 
+        className="w-full bg-[#20211e] flex flex-col items-center justify-center min-h-screen px-4 sm:px-8 md:px-12 lg:px-16 py-20 sm:py-28 md:py-32"
+        data-node-id="142:27"
+      >
+        <div className="w-full max-w-3xl">
+          <p 
+            className="text-center text-white"
+            style={{
+              fontFamily: "'Arial', sans-serif",
+              fontSize: 'clamp(28px, 5vw, 48px)',
+              letterSpacing: '2px',
+              lineHeight: '1.6',
+              fontWeight: '400',
+            }}
+          >
+            from{' '}
+            <span style={{ fontWeight: 'bold' }}>wild</span>
+            {' '}ideas to sleek visuals, we mix{' '}
+            <span style={{ textDecoration: 'underline', fontStyle: 'italic' }}>design</span>
+            {', rhythm, and attitude to turn every project into a piece of pure '}
+            <span 
+              style={{ 
+                fontStyle: 'italic',
+                position: 'relative',
+                display: 'inline-block',
+              }}
+            >
+              vibe
+              <span 
+                style={{
+                  position: 'absolute',
+                  bottom: '-8px',
+                  left: '0',
+                  right: '0',
+                  height: '12px',
+                  backgroundColor: 'rgba(252, 117, 120, 0.6)',
+                  zIndex: '-1',
+                }}
+              />
+            </span>
+            .
           </p>
         </div>
       </div>
 
-      {/* Each Service Item - Full viewport height */}
-      {items.map((service, index) => (
-        <div
-          key={service.number}
-          className="w-full min-h-screen flex flex-col justify-center px-4 py-20"
-        >
-          <div className="max-w-7xl mx-auto w-full">
-            <div className={`flex items-center gap-8 md:gap-16 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
-              {/* Number */}
-              <div className="shrink-0">
-                <span className="text-7xl md:text-8xl lg:text-9xl font-bold text-gray-900 opacity-20">
-                  {service.number}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <div className="mb-8">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
-                    {service.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-600 max-w-2xl">
-                    {service.description}
+      {/* Dark Background Services Grid */}
+      <div className="w-full bg-[#20211e]">
+        {items.map((service, index) => {
+          const isEven = index % 2 === 1; // 02, 04 are on the right
+          return (
+            <div
+              key={service.number}
+              className="w-full min-h-screen flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32"
+              style={{ maxWidth: '1280px', margin: '0 auto' }}
+            >
+              <div className={`flex items-start gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${isEven ? 'flex-row-reverse' : ''}`}>
+                {/* Service Number - Big Shoulders Display */}
+                <div className="shrink-0">
+                  <p 
+                    className="text-9xl sm:text-9xl md:text-9xl lg:text-[200px] xl:text-[290px] font-normal text-white leading-none"
+                    style={{
+                      fontFamily: "'Big Shoulders Display', sans-serif",
+                      fontWeight: '400',
+                      letterSpacing: '14.5px',
+                      lineHeight: '1',
+                    }}
+                  >
+                    {service.number}
                   </p>
                 </div>
 
-                {/* Decorative Lines */}
-                <div className="grid grid-cols-2 gap-8 md:gap-12 max-w-md">
-                  <div className="space-y-4">
-                    <div className="h-px bg-gray-300"></div>
-                    <div className="h-px bg-gray-300"></div>
-                    <div className="h-px bg-gray-300"></div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="h-px bg-gray-300"></div>
-                    <div className="h-px bg-gray-300"></div>
-                    <div className="h-px bg-gray-300"></div>
+                {/* Service Content */}
+                <div className="flex-1 flex flex-col justify-start pt-4 sm:pt-8 md:pt-12">
+                  {/* Title - Arial Regular */}
+                  <h3 
+                    className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal text-white mb-2 sm:mb-4 md:mb-6"
+                    style={{
+                      fontFamily: "'Arial', sans-serif",
+                      fontSize: '48px',
+                      letterSpacing: '2.4px',
+                      lineHeight: '1.2',
+                    }}
+                  >
+                    {service.title}
+                  </h3>
+
+                  {/* Description - Arial Italic */}
+                  <p 
+                    className="text-xs sm:text-sm text-[#ababab] mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-sm"
+                    style={{
+                      fontFamily: "'Arial', sans-serif",
+                      fontSize: '11px',
+                      fontStyle: 'italic',
+                      letterSpacing: '0.55px',
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    {service.description}
+                  </p>
+
+                  {/* Decorative Lines */}
+                  <div className="flex gap-6 sm:gap-8 md:gap-12 h-24 sm:h-32 md:h-40">
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="h-px bg-gray-600"></div>
+                      <div className="h-px bg-gray-600"></div>
+                      <div className="h-px bg-gray-600"></div>
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div className="h-px bg-gray-600"></div>
+                      <div className="h-px bg-gray-600"></div>
+                      <div className="h-px bg-gray-600"></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
+          );
+        })}
+      </div>
     </section>
   );
 }

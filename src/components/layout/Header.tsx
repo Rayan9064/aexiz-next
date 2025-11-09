@@ -19,7 +19,7 @@ export default function Header({
 
         {/* Contact Button */}
         <button
-          className="flex items-center gap-2 sm:gap-3 rounded-full bg-[#20211e] px-6 sm:px-8 py-2 sm:py-3 transition-all duration-200 hover:bg-black"
+          className="flex items-center gap-2 sm:gap-3 rounded-full bg-[#20211e] px-6 sm:px-8 py-2 sm:py-3 transition-all duration-200 hover:bg-black border-2 border-white"
           aria-label="Contact us"
         >
           <span className="text-base sm:text-lg md:text-xl font-bold tracking-wider text-white">
