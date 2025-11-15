@@ -20,13 +20,28 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   const { ref: headingRef, isVisible: headingVisible } = useScrollAnimation({ threshold: 0.3 });
 
+  const barBaseStyle: React.CSSProperties = {
+    position: 'absolute',
+    width: 'clamp(70vw, 75vw, 80vw)',
+    height: '80px',
+    top: `${barTopOffset}px`,
+    backgroundColor: 'rgba(255, 0, 0, 0.53)',
+    zIndex: 1,
+    pointerEvents: 'none',
+  };
+
+  const barPositionStyle: React.CSSProperties =
+    barAlignment === 'right' ? { right: 0 } : { left: '50%', transform: 'translateX(-50%)' };
+
+  const barStyle: React.CSSProperties = { ...barBaseStyle, ...barPositionStyle };
+
   return (
     <div
       ref={headingRef}
-      className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-20 flex flex-col justify-center transition-all duration-700"
+      className="w-full min-h-screen bg-ghostwhite relative px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-12 md:py-20 flex flex-col justify-center transition-all duration-700 -mt-16 sm:-mt-20 md:-mt-24"
       style={{ position: 'relative' }}
     >
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto flex justify-center">
         {/* Section Header - Figma design spec */}
         <h2
           className={`transition-all duration-700 ${
@@ -38,10 +53,10 @@ export default function SectionHeader({
             fontWeight: '400',
             color: '#000',
             lineHeight: 'normal',
-            width: '1109px',
+            display: 'block',
+            textAlign: 'center',
             height: '298px',
             flexShrink: 0,
-            display: 'block',
             margin: 0,
             padding: 0,
             position: 'relative',
@@ -60,16 +75,7 @@ export default function SectionHeader({
           className={`transition-all duration-700 delay-150 ${
             headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
-          style={{
-            position: 'absolute',
-            [barAlignment]: 0,
-            width: '80vw',
-            height: '80px',
-            top: `${barTopOffset}px`,
-            backgroundColor: 'rgba(255, 0, 0, 0.53)',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }}
+          style={barStyle}
         />
       )}
     </div>
