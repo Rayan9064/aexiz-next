@@ -83,10 +83,11 @@ export default function Header({
   }, []);
 
   const logoColor = isDark ? '#ffffff' : '#000000';
-  const buttonBg = isDark ? '#ef6b6b' : '#20211e';
+  const buttonBg = isDark ? '#ffffff' : '#20211e';
+  const buttonTextColor = isDark ? '#000000' : '#ffffff';
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 sm:px-8 md:px-16 py-4 sm:py-6 md:py-8 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 sm:px-8 md:px-16 py-2 sm:py-3 md:py-4 bg-transparent">
       <div className="mx-auto flex items-center justify-between max-w-7xl">
         {/* Logo */}
         <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wider font-sans" style={{ color: logoColor }}>
@@ -97,8 +98,8 @@ export default function Header({
 
         {/* Contact Button */}
         <Link href="/contact" aria-label="Contact us" className="flex items-center gap-2 sm:gap-3 rounded-full px-6 sm:px-8 py-2 sm:py-3 transition-all duration-200" style={{ backgroundColor: buttonBg, border: 'none' }}>
-          <span className="text-base sm:text-lg md:text-xl font-bold tracking-wider text-white">{contactButtonText}</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+          <span className="text-base sm:text-lg md:text-xl font-bold tracking-wider" style={{ color: buttonTextColor }}>{contactButtonText}</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={buttonTextColor} strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
         </Link>
       </div>
     </header>
