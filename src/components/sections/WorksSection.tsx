@@ -89,53 +89,53 @@ export default function WorksSection({ works }: WorksSectionProps) {
         showBar={true}
       />
 
-      {/* Works Grid */}
+      {/* Works Grid (each item full viewport) */}
       <div className="w-full bg-white">
         <div ref={itemsRef} className="space-y-0">
-        {items.map((work, index) => {
-          const isDarkBg = index % 2 === 0;
-          const bgClass = isDarkBg ? 'bg-black text-ghostwhite' : 'bg-white text-black';
-          const cardBgClass = isDarkBg ? 'bg-gray-400' : 'bg-gray-900';
+          {items.map((work, index) => {
+            const isDarkBg = index % 2 === 0;
+            const bgClass = isDarkBg ? 'bg-black text-ghostwhite' : 'bg-white text-black';
+            const cardBgClass = isDarkBg ? 'bg-gray-400' : 'bg-gray-900';
 
-          return (
-            <div
-              key={work.id}
-              className={`${bgClass} py-16 px-4 transition-all duration-700 ${
-                itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
-              }`}
-              style={{
-                transitionDelay: itemsVisible ? `${index * 0.12}s` : '0s',
-              }}
-            >
-              <div className="max-w-7xl mx-auto">
-                {/* Title */}
-                <h3 className={`text-6xl md:text-7xl font-bold mb-4 ${isDarkBg ? 'text-ghostwhite' : 'text-gray-800'}`}>
-                  {work.title}
-                </h3>
+            return (
+              <div
+                key={work.id}
+                className={`${bgClass} w-full min-h-screen flex items-center justify-center transition-all duration-700 ${
+                  itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+                }`}
+                style={{
+                  transitionDelay: itemsVisible ? `${index * 0.12}s` : '0s',
+                }}
+              >
+                <div className="w-full h-full flex flex-col items-center justify-center">
+                  {/* Title */}
+                  <h3 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkBg ? 'text-ghostwhite' : 'text-gray-800'} text-center`}>
+                    {work.title}
+                  </h3>
 
-                {/* Description */}
-                <p className="text-sm md:text-base text-gray-600 mb-12 max-w-2xl">
-                  {work.description}
-                </p>
+                  {/* Description */}
+                  <p className="text-xs md:text-sm text-gray-600 mb-6 text-center">
+                    {work.description}
+                  </p>
 
-                {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {work.cards.map((card, cardIndex) => (
-                    <div
-                      key={card.id}
-                      className={`${cardBgClass} rounded-2xl aspect-square transition-all duration-700 ${
-                        itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                      }`}
-                      style={{
-                        transitionDelay: itemsVisible ? `${(index * 0.12) + (cardIndex * 0.08)}s` : '0s',
-                      }}
-                    />
-                  ))}
+                  {/* Cards Grid (centered) */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center justify-center w-full max-w-6xl">
+                    {work.cards.map((card, cardIndex) => (
+                      <div
+                        key={card.id}
+                        className={`${cardBgClass} rounded-2xl aspect-square w-full max-w-[280px] mx-auto transition-all duration-700 ${
+                          itemsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                        }`}
+                        style={{
+                          transitionDelay: itemsVisible ? `${(index * 0.12) + (cardIndex * 0.08)}s` : '0s',
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
       </div>
     </section>
