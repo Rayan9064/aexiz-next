@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <footer className="site-footer w-full bg-ghostwhite text-black py-0 relative overflow-hidden">
-      <div className="footer-content max-w-5xl mx-auto px-8 h-screen flex flex-col gap-6 justify-between">
+      <div className="footer-content max-w-5xl mx-auto px-6 py-8 flex flex-col gap-6 justify-between">
         {/* Top contact section */}
         <div className="footer-top-contact text-right pt-4">
           <div className="flex flex-col items-end gap-2">
@@ -12,7 +12,7 @@ export default function Footer() {
             </h3>
             <a
               href="mailto:aexizsolutions@gmail.com"
-              className="text-5xl font-bold text-black underline hover:text-gray-700 transition-colors"
+              className="text-2xl sm:text-5xl font-bold text-black underline hover:text-gray-700 transition-colors break-words max-w-full"
             >
               aexizsolutions@gmail.com
             </a>
@@ -80,7 +80,7 @@ export default function Footer() {
         </div>
 
         {/* Footer bottom - Legal and Copyright */}
-        <div className="footer-bottom flex justify-between items-start py-2 border-t border-gray-300">
+        <div className="footer-bottom flex flex-col md:flex-row justify-between items-start py-2 border-t border-gray-300">
           <div className="footer-legal flex-1 text-left">
             <p className="text-xs text-black font-normal">
               By using this website, you agree to our Terms & Conditions and Privacy Policy.
@@ -94,9 +94,9 @@ export default function Footer() {
         </div>
 
         {/* Large AEXIZ logo section */}
-        <div className="footer-logo-section flex justify-center items-end pb-0 mb-0 h-60vh min-h-96 relative -top-8 z-10">
+        <div className="footer-logo-section flex justify-center items-end pb-0 mb-0 h-40 sm:h-56 md:h-72 lg:h-96 relative -top-8 z-10">
           <div className="w-full max-w-4xl h-full text-center flex items-end justify-center opacity-90">
-            <span className="text-[250px] font-black text-black leading-none wrap-break-word">
+            <span className="font-black text-black leading-none block text-[80px] sm:text-[140px] md:text-[200px] lg:text-[250px]">
               AEXIZ
             </span>
           </div>

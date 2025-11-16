@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface SectionHeaderProps {
@@ -20,11 +20,22 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   const { ref: headingRef, isVisible: headingVisible } = useScrollAnimation({ threshold: 0.3 });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const onChange = () => setIsMobile(mq.matches);
+    onChange();
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+
   const barBaseStyle: React.CSSProperties = {
     position: 'absolute',
     width: 'clamp(70vw, 75vw, 80vw)',
-    height: '80px',
-    top: `${barTopOffset}px`,
+    height: isMobile ? 'clamp(28px, 6vw, 60px)' : '80px',
+    top: `${Math.max(0, barTopOffset - (isMobile ? 40 : 0))}px`,
     backgroundColor: 'rgba(255, 0, 0, 0.53)',
     zIndex: 1,
     pointerEvents: 'none',
@@ -49,19 +60,19 @@ export default function SectionHeader({
           }`}
           style={{
             fontFamily: "'Impact', sans-serif",
-            fontSize: '290px',
+            fontSize: isMobile ? 'clamp(80px, 12vw, 200px)' : '290px',
             fontWeight: '400',
             color: '#000',
             lineHeight: 'normal',
             display: 'block',
             textAlign: 'center',
-            height: '298px',
+            height: 'auto',
             flexShrink: 0,
             margin: 0,
             padding: 0,
             position: 'relative',
             zIndex: 2,
-            top: '-40px',
+            top: isMobile ? '-20px' : '-40px',
           }}
         >
           {title}
