@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SectionHeader from '@/components/layout/SectionHeader';
 
@@ -47,39 +47,55 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
   ];
 
   const items = services || defaultServices;
+  const [isMobileLayout, setIsMobileLayout] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const contentEls = Array.from(document.querySelectorAll<HTMLDivElement>('.service-content'));
     const numberEls = Array.from(document.querySelectorAll<HTMLSpanElement>('.service-number'));
 
-    contentEls.forEach((contentEl, i) => {
-      const numberEl = numberEls[i];
-      if (!numberEl) return;
-      const height = contentEl.getBoundingClientRect().height;
-      const fontSize = Math.max(100, Math.min(420, Math.floor(height * 0.9)));
-      numberEl.style.fontSize = fontSize + 'px';
-      numberEl.style.letterSpacing = (14.5 * (fontSize / 290)).toFixed(2) + 'px';
-      numberEl.style.lineHeight = '1';
-    });
+    const checkMobile = () => setIsMobileLayout(window.matchMedia('(max-width: 640px)').matches);
+    checkMobile();
+
+    const updateNumberSizing = () => {
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const scale = isMobile ? 0.75 : 1; // increase sizing on mobile
+
+      contentEls.forEach((contentEl, i) => {
+        const numberEl = numberEls[i];
+        if (!numberEl) return;
+        const height = contentEl.getBoundingClientRect().height;
+        const base = Math.floor(height * 0.9 * scale);
+        const fontSize = Math.max(60, Math.min(420, base));
+        numberEl.style.fontSize = fontSize + 'px';
+        numberEl.style.letterSpacing = (14.5 * (fontSize / 290)).toFixed(2) + 'px';
+        numberEl.style.lineHeight = '1';
+      });
+    };
+
+    // initial sizing
+    updateNumberSizing();
 
     const observers: ResizeObserver[] = [];
     contentEls.forEach((contentEl, i) => {
       const ro = new ResizeObserver(() => {
-        const numberEl = numberEls[i];
-        if (!numberEl) return;
-        const h = contentEl.getBoundingClientRect().height;
-        const fs = Math.max(100, Math.min(420, Math.floor(h * 0.9)));
-        numberEl.style.fontSize = fs + 'px';
-        numberEl.style.letterSpacing = (14.5 * (fs / 290)).toFixed(2) + 'px';
-        numberEl.style.lineHeight = '1';
+        updateNumberSizing();
       });
       ro.observe(contentEl);
       observers.push(ro);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    // also update on window resize / breakpoint change and keep mobile flag in sync
+    const onResize = () => {
+      checkMobile();
+      updateNumberSizing();
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener('resize', onResize);
+    };
   }, [items]);
 
   return (
@@ -180,103 +196,181 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
           transitionDelay: servicesVisible ? `${index * 0.15}s` : '0s',
           }}
         >
-          {/* Use items-center so the big number vertically centers with the content block */}
-          <div className={`flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${isEven ? 'flex-row-reverse' : ''}`}>
-          {/* Service Number - Big Shoulders Display */}
-          {/* Number column: fixed width, full height of the service block so number lines up with corresponding content */}
-          <div
-            className="shrink-0"
-            style={{
-            width: 360,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-                      paddingRight: isEven ? 8 : 0,
+          {isMobileLayout ? (
+            // Mobile: number and title on a single row, description full-width below
+            <>
+              <div className="w-full flex items-start gap-4">
+                <div style={{ width: 100, display: 'flex', alignItems: 'flex-start' }}>
+                  <span
+                    aria-hidden
+                    className={`service-number transition-all duration-700 ${
+                      servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    }`}
+                    style={{
+                      color: '#FFF',
+                      fontFamily: 'BigShoulders, Arial, sans-serif',
+                      fontSize: 180,
+                      fontStyle: 'normal',
+                      fontWeight: 400,
+                      lineHeight: 'normal',
+                      letterSpacing: '14.5px',
+                      display: 'block',
+                      transitionDelay: servicesVisible ? `${index * 0.15 + 0.1}s` : '0s',
+                      textAlign: isEven ? 'right' : 'left',
+                      whiteSpace: 'nowrap',
+                      margin: 0,
+                      padding: 0,
                     }}
                   >
-                    <span
-                      aria-hidden
-                      className={`service-number transition-all duration-700 ${
-                        servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                      }`}
-                      style={{
-                        color: '#FFF',
-                        fontFamily: 'BigShoulders, Arial, sans-serif',
-                        fontSize: 290,
-                        fontStyle: 'normal',
-                        fontWeight: 400,
-                        lineHeight: 'normal',
-                        letterSpacing: '14.5px',
-                        display: 'block',
-                        transitionDelay: servicesVisible ? `${index * 0.15 + 0.1}s` : '0s',
-                        textAlign: isEven ? 'right' : 'left',
-                        whiteSpace: 'nowrap',
-                        margin: 0,
-                        padding: 0,
-                      }}
-                    >
-                      {service.number}
-                    </span>
-                  </div>
+                    {service.number}
+                  </span>
+                </div>
 
-                {/* Service Content */}
-                <div className="service-content flex-1 flex flex-col justify-start pt-4 sm:pt-8 md:pt-12">
-                  {/* Title - Arial Regular */}
-                  <h3 
-                    className={`text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal text-white transition-all duration-700 ${
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                  <h3
+                    className={`text-2xl font-normal text-white transition-all duration-700 ${
                       servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}
                     style={{
                       fontFamily: "'Arial', sans-serif",
-                      fontSize: '48px',
-                      letterSpacing: '2.4px',
-                      lineHeight: '1.2',
+                      fontSize: '34px',
+                      letterSpacing: '2px',
+                      lineHeight: '1.15',
                       transitionDelay: servicesVisible ? `${index * 0.15 + 0.15}s` : '0s',
                     }}
                   >
                     {service.title}
                   </h3>
+                </div>
+              </div>
 
-                  {/* Description - Arial Italic */}
-                  <p 
-                    className={`text-xs sm:text-sm text-[#ababab] mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-sm transition-all duration-700 ${
-                      servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}
-                    style={{
-                      fontFamily: "'Arial', sans-serif",
-                      fontSize: '11px',
-                      fontStyle: 'italic',
-                      letterSpacing: '0.55px',
-                      lineHeight: '1.5',
-                      transitionDelay: servicesVisible ? `${index * 0.15 + 0.2}s` : '0s',
-                    }}
-                  >
-                    {service.description}
-                  </p>
-
-                  {/* Decorative Lines */}
-                  <div className={`flex gap-6 sm:gap-8 md:gap-12 h-24 sm:h-32 md:h-40 transition-all duration-700 ${
+              <div className="service-content w-full mt-6">
+                <p
+                  className={`text-xs text-[#ababab] mb-6 leading-relaxed w-full transition-all duration-700 ${
                     servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                   }`}
-                    style={{
-                      transitionDelay: servicesVisible ? `${index * 0.15 + 0.25}s` : '0s',
-                    }}
-                  >
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div className="h-px bg-gray-600"></div>
-                      <div className="h-px bg-gray-600"></div>
-                      <div className="h-px bg-gray-600"></div>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div className="h-px bg-gray-600"></div>
-                      <div className="h-px bg-gray-600"></div>
-                      <div className="h-px bg-gray-600"></div>
-                    </div>
+                  style={{
+                    fontFamily: "'Arial', sans-serif",
+                    fontSize: '11px',
+                    fontStyle: 'italic',
+                    letterSpacing: '0.55px',
+                    lineHeight: '1.5',
+                    transitionDelay: servicesVisible ? `${index * 0.15 + 0.2}s` : '0s',
+                  }}
+                >
+                  {service.description}
+                </p>
+
+                {/* Decorative Lines */}
+                <div className={`flex gap-6 h-24 transition-all duration-700 ${
+                  servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`} style={{ transitionDelay: servicesVisible ? `${index * 0.15 + 0.25}s` : '0s' }}>
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                  </div>
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            // Desktop: keep existing two-column layout
+            <div className={`flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${isEven ? 'flex-row-reverse' : ''}`}>
+              <div
+                className="shrink-0"
+                style={{
+                  width: 360,
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: isEven ? 8 : 0,
+                }}
+              >
+                <span
+                  aria-hidden
+                  className={`service-number transition-all duration-700 ${
+                    servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  }`}
+                  style={{
+                    color: '#FFF',
+                    fontFamily: 'BigShoulders, Arial, sans-serif',
+                    fontSize: 220,
+                    fontStyle: 'normal',
+                    fontWeight: 400,
+                    lineHeight: 'normal',
+                    letterSpacing: '14.5px',
+                    display: 'block',
+                    transitionDelay: servicesVisible ? `${index * 0.15 + 0.1}s` : '0s',
+                    textAlign: isEven ? 'right' : 'left',
+                    whiteSpace: 'nowrap',
+                    margin: 0,
+                    padding: 0,
+                  }}
+                >
+                  {service.number}
+                </span>
+              </div>
+
+              <div className="service-content flex-1 flex flex-col justify-start pt-4 sm:pt-8 md:pt-12" style={{ width: '100%' }}>
+                <h3 
+                  className={`text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal text-white transition-all duration-700 ${
+                    servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{
+                    fontFamily: "'Arial', sans-serif",
+                    fontSize: '48px',
+                    letterSpacing: '2.4px',
+                    lineHeight: '1.2',
+                    transitionDelay: servicesVisible ? `${index * 0.15 + 0.15}s` : '0s',
+                  }}
+                >
+                  {service.title}
+                </h3>
+
+                <p 
+                  className={`text-xs sm:text-sm text-[#ababab] mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-sm transition-all duration-700 ${
+                    servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{
+                    fontFamily: "'Arial', sans-serif",
+                    fontSize: '11px',
+                    fontStyle: 'italic',
+                    letterSpacing: '0.55px',
+                    lineHeight: '1.5',
+                    transitionDelay: servicesVisible ? `${index * 0.15 + 0.2}s` : '0s',
+                  }}
+                >
+                  {service.description}
+                </p>
+
+                <div className={`flex gap-6 sm:gap-8 md:gap-12 h-24 sm:h-32 md:h-40 transition-all duration-700 ${
+                  servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                  style={{
+                    transitionDelay: servicesVisible ? `${index * 0.15 + 0.25}s` : '0s',
+                  }}
+                >
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                  </div>
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
+                    <div className="h-px bg-gray-600"></div>
                   </div>
                 </div>
               </div>
             </div>
-          );
+          )}
+        </div>
+      );
         })}
       </div>
     </section>
