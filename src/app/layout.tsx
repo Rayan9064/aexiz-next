@@ -24,23 +24,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Hide header/navbar when under-development toggle is on
+  const hideLayout = process.env.NEXT_PUBLIC_SHOW_UNDER_DEVELOPMENT === '1';
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Floating Header */}
-        <Header logoText="aexiz" contactButtonText="contact" />
-        {/* Floating NavigationBar fixed to bottom of viewport (visible on all sections) */}
-        <div className="fixed left-0 right-0 z-40 bottom-8 pointer-events-none">
-          <div className="w-full flex justify-center pointer-events-auto">
-            <div className="max-w-7xl w-full flex justify-center">
-              <NavigationBar />
+        {!hideLayout && (
+          <>
+            {/* Floating Header */}
+            <Header logoText="aexiz" contactButtonText="contact" />
+            {/* Floating NavigationBar fixed to bottom of viewport (visible on all sections) */}
+            <div className="fixed left-0 right-0 z-40 bottom-8 pointer-events-none">
+              <div className="w-full flex justify-center pointer-events-auto">
+                <div className="max-w-7xl w-full flex justify-center">
+                  <NavigationBar />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-    {/* Main content below header and navbar */}
-  <div className="pt-16 sm:pt-20 md:pt-24">
+          </>
+        )}
+        {/* Main content below header and navbar */}
+        <div className={!hideLayout ? "pt-16 sm:pt-20 md:pt-24" : ""}>
           {children}
         </div>
       </body>

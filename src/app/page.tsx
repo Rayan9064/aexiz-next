@@ -1,7 +1,13 @@
 import HeroSection from '@/components/sections/HeroSection';
 import Footer from '@/components/layout/Footer';
+import UnderDevelopment from '@/components/UnderDevelopment';
 
 export default function Home() {
+  // Show under development page if toggle is enabled
+  if (process.env.NEXT_PUBLIC_SHOW_UNDER_DEVELOPMENT === '1') {
+    return <UnderDevelopment />;
+  }
+
   return (
     <main className="w-full">
       {/* Hero Section */}
