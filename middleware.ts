@@ -15,7 +15,6 @@ export function middleware(req: NextRequest) {
   // Allow root (/) and a small allowlist to pass through unchanged
   const allowlist = [
     '/',
-    '/under-development',
     '/favicon.ico',
     '/robots.txt',
     '/sitemap.xml',
